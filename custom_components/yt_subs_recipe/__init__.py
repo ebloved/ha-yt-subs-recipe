@@ -18,22 +18,24 @@ from homeassistant.core import HomeAssistant, ServiceCall, SupportsResponse
 from homeassistant.helpers import config_validation as cv
 
 from .const import (
-    DOMAIN,
+    ATTR_JOB_ID,
+    ATTR_TEXT,
+    ATTR_URL,
     CONF_API_KEY,
     CONF_MODELS,
     CONF_PROXY,
     DEFAULT_MODELS,
+    DOMAIN,
+    SERVICE_DOWNLOAD_AND_GENERATE,
     SERVICE_DOWNLOAD_SUBS,
     SERVICE_GENERATE_RECIPE,
-    SERVICE_DOWNLOAD_AND_GENERATE,
-    ATTR_URL,
-    ATTR_JOB_ID,
-    ATTR_TEXT,
 )
 
 _LOGGER = logging.getLogger(__name__)
 
 PLATFORMS: list[str] = []
+
+CONFIG_SCHEMA = cv.config_entry_only_config_schema(DOMAIN)
 
 # In-memory кэш текстов субтитров по job_id
 _JOBS: dict[str, str] = {}
@@ -99,7 +101,12 @@ def clean_vtt_text(raw: str) -> str:
     return " ".join(cleaned)
 
 
-async def _download_subs(url: str) -> tuple[str, str]:
+def _read_file_sync(path: str) -> str:
+    with open(path, "r", encoding="utf-8") as fh:
+        return fh.read()
+
+
+async def _download_subs(hass: HomeAssistant, url: str) -> tuple[str, str]:
     """Скачивает субтитры через yt-dlp. Возвращает (job_id, текст)."""
     import yt_dlp
 
@@ -115,19 +122,17 @@ async def _download_subs(url: str) -> tuple[str, str]:
         "outtmpl": f"/tmp/{job_id}_%(title)s.%(ext)s",
     }
 
-    loop = asyncio.get_event_loop()
-
     def _run() -> None:
         with yt_dlp.YoutubeDL(ydl_opts) as ydl:
             ydl.download([url])
 
-    await loop.run_in_executor(None, _run)
+    await hass.async_add_executor_job(_run)
 
     files = glob.glob(f"/tmp/{job_id}_*.vtt")
     text_parts = []
     for f in files:
-        with open(f, "r", encoding="utf-8") as fh:
-            text_parts.append(clean_vtt_text(fh.read()))
+        raw = await hass.async_add_executor_job(_read_file_sync, f)
+        text_parts.append(clean_vtt_text(raw))
 
     if not text_parts:
         raise RuntimeError("Субтитры не найдены или не удалось скачать")
@@ -211,7 +216,7 @@ async def _async_register_services(hass: HomeAssistant) -> None:
 
     async def handle_download_subs(call: ServiceCall) -> dict:
         url = call.data[ATTR_URL]
-        job_id, text = await _download_subs(url)
+        job_id, text = await _download_subs(hass, url)
         _JOBS[job_id] = text
         return {"job_id": job_id, "text": text}
 
@@ -234,7 +239,7 @@ async def _async_register_services(hass: HomeAssistant) -> None:
 
     async def handle_download_and_generate(call: ServiceCall) -> dict:
         url = call.data[ATTR_URL]
-        job_id, text = await _download_subs(url)
+        job_id, text = await _download_subs(hass, url)
         _JOBS[job_id] = text
 
         config = _get_config(hass)
