@@ -1,0 +1,69 @@
+{
+  "config": {
+    "step": {
+      "user": {
+        "title": "Настройка YT Subs → Recipe",
+        "description": "Введите API-ключ Gemini, список моделей и (опционально) прокси.",
+        "data": {
+          "api_key": "Gemini API Key",
+          "models": "Модели (через запятую)",
+          "proxy": "Proxy host (опционально)"
+        }
+      }
+    },
+    "error": {
+      "api_key_required": "API-ключ обязателен"
+    },
+    "abort": {
+      "already_configured": "Интеграция уже настроена"
+    }
+  },
+  "options": {
+    "step": {
+      "init": {
+        "title": "Настройки YT Subs → Recipe",
+        "data": {
+          "api_key": "Gemini API Key",
+          "models": "Модели (через запятую)",
+          "proxy": "Proxy host (опционально)"
+        }
+      }
+    }
+  },
+  "services": {
+    "download_subs": {
+      "name": "Скачать субтитры",
+      "description": "Скачивает субтитры YouTube Shorts через yt-dlp и возвращает текст.",
+      "fields": {
+        "url": {
+          "name": "URL",
+          "description": "Ссылка на YouTube Shorts."
+        }
+      }
+    },
+    "generate_recipe": {
+      "name": "Сгенерировать рецепт",
+      "description": "Генерирует Markdown-рецепт из текста субтитров через Gemini.",
+      "fields": {
+        "text": {
+          "name": "Текст субтитров",
+          "description": "Готовый текст субтитров для генерации рецепта."
+        },
+        "job_id": {
+          "name": "Job ID",
+          "description": "Идентификатор, полученный из download_subs."
+        }
+      }
+    },
+    "download_and_generate": {
+      "name": "Скачать и сгенерировать рецепт",
+      "description": "Комбо-сервис — скачивает субтитры и сразу генерирует рецепт.",
+      "fields": {
+        "url": {
+          "name": "URL",
+          "description": "Ссылка на YouTube Shorts."
+        }
+      }
+    }
+  }
+}

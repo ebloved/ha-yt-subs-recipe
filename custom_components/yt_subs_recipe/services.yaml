@@ -1,0 +1,41 @@
+download_subs:
+  name: Скачать субтитры
+  description: Скачивает субтитры YouTube Shorts через yt-dlp и возвращает текст.
+  fields:
+    url:
+      name: URL
+      description: Ссылка на YouTube Shorts.
+      required: true
+      example: "https://youtube.com/shorts/nPZcWrUEO6Y"
+      selector:
+        text:
+
+generate_recipe:
+  name: Сгенерировать рецепт
+  description: Генерирует Markdown-рецепт из текста субтитров через Gemini.
+  fields:
+    text:
+      name: Текст субтитров
+      description: Готовый текст субтитров для генерации рецепта.
+      required: false
+      selector:
+        text:
+          multiline: true
+    job_id:
+      name: Job ID
+      description: Идентификатор, полученный из download_subs.
+      required: false
+      selector:
+        text:
+
+download_and_generate:
+  name: Скачать и сгенерировать рецепт
+  description: Комбо-сервис — скачивает субтитры и сразу генерирует рецепт.
+  fields:
+    url:
+      name: URL
+      description: Ссылка на YouTube Shorts.
+      required: true
+      example: "https://youtube.com/shorts/nPZcWrUEO6Y"
+      selector:
+        text:

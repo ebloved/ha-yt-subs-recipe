@@ -1,0 +1,56 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+dist/
+*.egg-info/
+.eggs/
+.venv/
+venv/
+env/
+ENV/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+
+# Home Assistant
+.storage/
+home-assistant.log
+home-assistant_v2.db
+*.db
+*.db-journal
+configuration.yaml.bak
+
+# Env / secrets
+.env
+.env.local
+.env.*.local
+secrets.yaml
+cookies.txt
+
+# Временные файлы yt-dlp
+*.vtt
+*.srt
+downloads/
+
+# IDE / редакторы
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+.DS_Store
+Thumbs.db
+
+# Логи
+*.log
+logs/
+
+# Node (если когда-то появится)
+node_modules/
+package-lock.json

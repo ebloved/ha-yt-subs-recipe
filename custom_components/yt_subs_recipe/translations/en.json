@@ -1,0 +1,69 @@
+{
+  "config": {
+    "step": {
+      "user": {
+        "title": "Set up YT Subs → Recipe",
+        "description": "Enter your Gemini API key, models list, and (optionally) a proxy.",
+        "data": {
+          "api_key": "Gemini API Key",
+          "models": "Models (comma-separated)",
+          "proxy": "Proxy host (optional)"
+        }
+      }
+    },
+    "error": {
+      "api_key_required": "API key is required"
+    },
+    "abort": {
+      "already_configured": "Integration is already configured"
+    }
+  },
+  "options": {
+    "step": {
+      "init": {
+        "title": "YT Subs → Recipe options",
+        "data": {
+          "api_key": "Gemini API Key",
+          "models": "Models (comma-separated)",
+          "proxy": "Proxy host (optional)"
+        }
+      }
+    }
+  },
+  "services": {
+    "download_subs": {
+      "name": "Download subtitles",
+      "description": "Download YouTube Shorts subtitles via yt-dlp and return the text.",
+      "fields": {
+        "url": {
+          "name": "URL",
+          "description": "YouTube Shorts URL."
+        }
+      }
+    },
+    "generate_recipe": {
+      "name": "Generate recipe",
+      "description": "Generate a Markdown recipe from subtitle text via Gemini.",
+      "fields": {
+        "text": {
+          "name": "Subtitle text",
+          "description": "Ready subtitle text to generate a recipe from."
+        },
+        "job_id": {
+          "name": "Job ID",
+          "description": "Identifier returned by download_subs."
+        }
+      }
+    },
+    "download_and_generate": {
+      "name": "Download and generate recipe",
+      "description": "Combined service — downloads subtitles and generates a recipe in one call.",
+      "fields": {
+        "url": {
+          "name": "URL",
+          "description": "YouTube Shorts URL."
+        }
+      }
+    }
+  }
+}
