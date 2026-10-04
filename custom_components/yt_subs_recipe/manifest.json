@@ -1,13 +1,13 @@
 {
   "domain": "yt_subs_recipe",
   "name": "YT Subs → Recipe",
-  "codeowners": ["@Ebloved"],
+  "codeowners": ["@ebloved"],
   "config_flow": true,
   "dependencies": ["http", "frontend", "lovelace"],
   "documentation": "https://github.com/ebloved/ha-yt-subs-recipe",
-  "issue_tracker": "https://github.com/ebloved/ha-yt-subs-recipe/issues",
-  "iot_class": "cloud_polling",
   "integration_type": "service",
-  "requirements": ["yt-dlp>=2026.8.19"],
+  "iot_class": "cloud_polling",
+  "issue_tracker": "https://github.com/ebloved/ha-yt-subs-recipe/issues",
+  "requirements": ["yt-dlp"],
   "version": "1.0.0"
 }
