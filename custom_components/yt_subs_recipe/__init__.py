@@ -11,7 +11,6 @@ from typing import Any
 
 import aiohttp
 import voluptuous as vol
-
 from homeassistant.components.http import StaticPathConfig
 from homeassistant.config_entries import ConfigEntry
 from homeassistant.core import HomeAssistant, ServiceCall, SupportsResponse
