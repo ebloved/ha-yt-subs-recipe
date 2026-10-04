@@ -1,4 +1,4 @@
-import { LitElement, html, css } from "lit";
+import { LitElement, html, css } from "https://cdn.jsdelivr.net/npm/lit@3.1.0/+esm";
 
 const DOMAIN = "yt_subs_recipe";
 

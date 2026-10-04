@@ -1,7 +1,7 @@
 # YT Subs → Recipe
 
 [![hacs_badge](https://img.shields.io/badge/HACS-Custom-41BDF5.svg)](https://github.com/hacs/integration)
-[![Validate](https://github.com/YOUR_USERNAME/ha-yt-subs-recipe/actions/workflows/validate.yml/badge.svg)](https://github.com/YOUR_USERNAME/ha-yt-subs-recipe/actions/workflows/validate.yml)
+[![Validate](https://github.com/ebloved/ha-yt-subs-recipe/actions/workflows/validate.yml/badge.svg)](https://github.com/ebloved/ha-yt-subs-recipe/actions/workflows/validate.yml)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 
 Интеграция Home Assistant, которая скачивает субтитры YouTube Shorts через `yt-dlp` и генерирует кулинарный рецепт в Markdown с помощью Google Gemini.
@@ -23,7 +23,7 @@
 2. Нажмите **⋮ → Custom repositories**.
 3. Вставьте URL репозитория:
    ```
-   https://github.com/YOUR_USERNAME/ha-yt-subs-recipe
+   https://github.com/ebloved/ha-yt-subs-recipe
    ```
 4. Выберите категорию **Integration**, нажмите **Add**.
 5. Найдите «YT Subs → Recipe» в HACS и нажмите **Download**.
@@ -241,7 +241,7 @@ socks5://user:pass@proxy.example.com:1080
 ## Разработка
 
 ```bash
-git clone https://github.com/YOUR_USERNAME/ha-yt-subs-recipe.git
+git clone https://github.com/ebloved/ha-yt-subs-recipe.git
 cd ha-yt-subs-recipe
 
 # Симлинк в конфиг HA для локальной разработки
