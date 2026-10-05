@@ -110,16 +110,22 @@ async def _download_subs(hass: HomeAssistant, url: str) -> tuple[str, str]:
     import yt_dlp
 
     job_id = uuid.uuid4().hex[:8]
+    
     ydl_opts = {
         "skip_download": True,
         "writesubtitles": True,
         "writeautomaticsub": True,
-        "subtitleslangs": ["ru.*", "en.*"],
+        "subtitleslangs": ["ru.*"],          # только ru
         "subtitlesformat": "vtt",
         "quiet": True,
         "no_warnings": True,
         "outtmpl": f"/tmp/{job_id}_%(title)s.%(ext)s",
-    }
+        "sleep_requests": 1,
+        "sleep_subtitles": 5,
+        "extractor_retries": 5,
+        "retry_sleep": {"429": 60},          # при 429 ждать 60 сек
+        "ignoreerrors": True,                 # не падать, если субтитры не скачались
+        }
 
     def _run() -> None:
         with yt_dlp.YoutubeDL(ydl_opts) as ydl:

@@ -8,6 +8,6 @@
   "integration_type": "service",
   "iot_class": "cloud_polling",
   "issue_tracker": "https://github.com/ebloved/ha-yt-subs-recipe/issues",
-  "requirements": ["yt-dlp"],
+  "requirements": ["yt-dlp", "curl_cffi"],
   "version": "1.0.0"
 }
